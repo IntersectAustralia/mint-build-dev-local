@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.googlecode.redbox-mint</groupId>
-  <artifactId>mint-local-curation-demo</artifactId>
+  <artifactId>Intersect-Mint-Installer</artifactId>
   <version>1.6.1</version>
   <packaging>${packaging}</packaging>
-  <name>The Mint - Local Curation Demo</name>
+  <name>Intersect - Mint Installer</name>
   <parent>
     <groupId>com.googlecode.redbox-mint</groupId>
     <artifactId>mint</artifactId>
@@ -13,7 +13,7 @@
   </parent>
   <properties>
     <!-- Used in build -->
-    <mint.version>1.6.1-SNAPSHOT</mint.version>
+    <mint.version>1.6.1</mint.version>
     <!-- Runtime values, will replace placeholders
              in config and control scripts -->
     <packaging>pom</packaging>
@@ -28,9 +28,9 @@
     <dir.solr>${project.home}/solr</dir.solr>
     <dir.storage>${project.home}/storage</dir.storage>
     <dir.geonames>${dir.home}/geonames/solr</dir.geonames>
-    <server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>
-    <smtp.host>localhost</smtp.host>
-    <admin.email>admin@localhost</admin.email>
+    <server.url.base>http://localhost:${server.port}/mint/</server.url.base>
+	<smtp.host>smtp.gmail.com</smtp.host>
+	<admin.email>seanx@intersect.org.au</admin.email>
     <!-- Control scripts try to auto-detect proxy. Use this value if you
              want Java to specifically exclude certain hosts from proxying. -->
     <non.proxy.hosts>localhost</non.proxy.hosts>
@@ -43,34 +43,34 @@
       <groupId>com.googlecode.redbox-mint</groupId>
       <artifactId>mint-project</artifactId>
       <type>pom</type>
-      <version>1.6.1</version>
+      <version>${mint.version}</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.redbox-mint</groupId>
       <artifactId>mint</artifactId>
       <type>pom</type>
-      <version>1.6.1</version>
+      <version>${mint.version}</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.redbox-mint</groupId>
       <artifactId>mint-config</artifactId>
-      <version>1.6.1</version>
+      <version>${mint.version}</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.redbox-mint</groupId>
       <artifactId>plugin-transaction-curation-mint</artifactId>
-      <version>1.6.1</version>
+      <version>${mint.version}</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.redbox-mint</groupId>
       <artifactId>sruclient-mint</artifactId>
-      <version>1.6.1</version>
+      <version>${mint.version}</version>
     </dependency>
     <!-- Mint Curation Plugin -->
     <dependency>
       <groupId>com.googlecode.redbox-mint</groupId>
       <artifactId>plugin-transformer-local</artifactId>
-      <version>1.6.1</version>
+      <version>${mint.version}</version>
     </dependency>
     <!-- Clean up a dependency error raised during 1.6.1 redbox release -->
     <dependency>
@@ -85,7 +85,7 @@
       <id>build-package</id>
       <properties>
         <app.location.windows>c:/tf2/mint</app.location.windows>
-    	<app.location.linux>/opt/mint</app.location.linux>
+    	<app.location.linux>${project.home}</app.location.linux>
         <server.url.base>http://localhost:${server.port}/mint/</server.url.base>
       </properties>
       <!-- Used for creating an install - omits local build system settings -->
