@@ -28,12 +28,12 @@
     <dir.solr>${project.home}/solr</dir.solr>
     <dir.storage>${project.home}/storage</dir.storage>
     <dir.geonames>${dir.home}/geonames/solr</dir.geonames>
-    <server.url.base>http://localhost:${server.port}/mint/</server.url.base>
+    <server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>
 	<smtp.host>smtp.gmail.com</smtp.host>
 	<admin.email>seanx@intersect.org.au</admin.email>
     <!-- Control scripts try to auto-detect proxy. Use this value if you
              want Java to specifically exclude certain hosts from proxying. -->
-    <non.proxy.hosts>localhost</non.proxy.hosts>
+    <non.proxy.hosts>${ip.address}</non.proxy.hosts>
   </properties>
   <dependencies>
     <!-- Mint Core - We want to explicitly define versions here because
@@ -86,7 +86,7 @@
       <properties>
         <app.location.windows>c:/tf2/mint</app.location.windows>
     	<app.location.linux>${project.home}</app.location.linux>
-        <server.url.base>http://localhost:${server.port}/mint/</server.url.base>
+        <server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>
       </properties>
       <!-- Used for creating an install - omits local build system settings -->
       <build>
