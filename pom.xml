@@ -28,12 +28,12 @@
     <dir.solr>${project.home}/solr</dir.solr>
     <dir.storage>${project.home}/storage</dir.storage>
     <dir.geonames>${dir.home}/geonames/solr</dir.geonames>
-    <server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>
+    <server.url.base>http://${mintServer.hostname}:${server.port}/mint/</server.url.base>
 	<smtp.host>smtp.gmail.com</smtp.host>
 	<admin.email>seanx@intersect.org.au</admin.email>
     <!-- Control scripts try to auto-detect proxy. Use this value if you
              want Java to specifically exclude certain hosts from proxying. -->
-    <non.proxy.hosts>${ip.address}</non.proxy.hosts>
+    <non.proxy.hosts>${mintServer.hostname}</non.proxy.hosts>
   </properties>
   <dependencies>
     <!-- Mint Core - We want to explicitly define versions here because
@@ -81,37 +81,37 @@
     </dependency>    
   </dependencies>
   <profiles>
-    <profile>
-      <id>build-package</id>
-      <properties>
-        <app.location.windows>c:/tf2/mint</app.location.windows>
-    	<app.location.linux>${project.home}</app.location.linux>
-        <server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>
-      </properties>
-      <!-- Used for creating an install - omits local build system settings -->
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>make-assembly</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-                <configuration>
-                  <descriptors>
-                    <descriptor>package.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+    <!--<profile>-->
+      <!--<id>build-package</id>-->
+      <!--<properties>-->
+        <!--<app.location.windows>c:/tf2/mint</app.location.windows>-->
+    	<!--<app.location.linux>${project.home}</app.location.linux>-->
+        <!--<server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>-->
+      <!--</properties>-->
+      <!--&lt;!&ndash; Used for creating an install - omits local build system settings &ndash;&gt;-->
+      <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-assembly-plugin</artifactId>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<id>make-assembly</id>-->
+                <!--<phase>package</phase>-->
+                <!--<goals>-->
+                  <!--<goal>single</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                  <!--<descriptors>-->
+                    <!--<descriptor>package.xml</descriptor>-->
+                  <!--</descriptors>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+      <!--</build>-->
+    <!--</profile>-->
     <profile>
       <id>ide</id>
       <properties>
@@ -119,6 +119,35 @@
         <project.home>../</project.home>
       </properties>
     </profile>
+
+	<!-- DEV-Default profile -->
+	<profile>
+	  <id>dev</id>
+	  <activation>
+		  <activeByDefault>true</activeByDefault>
+		  <property>
+			  <name>env</name>
+			  <value>dev</value>
+		  </property>
+	  </activation>
+	  <properties>
+		  <mintServer.hostname>localhost</mintServer.hostname>
+	  </properties>
+	</profile>
+
+	<!-- DEV-Default profile -->
+	<profile>
+	  <id>qa</id>
+	  <activation>
+		  <property>
+			  <name>env</name>
+			  <value>qa</value>
+		  </property>
+	  </activation>
+	  <properties>
+		  <mintServer.hostname>ic2-redbox-vm.intersect.org.au</mintServer.hostname>
+	  </properties>
+	</profile>
   </profiles>
   <!-- The standard build/deploy process for making a server -->
   <build>
