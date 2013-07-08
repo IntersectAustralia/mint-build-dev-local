@@ -81,42 +81,43 @@
     </dependency>    
   </dependencies>
   <profiles>
-    <!--<profile>-->
-      <!--<id>build-package</id>-->
-      <!--<properties>-->
-        <!--<app.location.windows>c:/tf2/mint</app.location.windows>-->
-    	<!--<app.location.linux>${project.home}</app.location.linux>-->
-        <!--<server.url.base>http://${ip.address}:${server.port}/mint/</server.url.base>-->
-      <!--</properties>-->
-      <!--&lt;!&ndash; Used for creating an install - omits local build system settings &ndash;&gt;-->
-      <!--<build>-->
-        <!--<plugins>-->
-          <!--<plugin>-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-assembly-plugin</artifactId>-->
-            <!--<executions>-->
-              <!--<execution>-->
-                <!--<id>make-assembly</id>-->
-                <!--<phase>package</phase>-->
-                <!--<goals>-->
-                  <!--<goal>single</goal>-->
-                <!--</goals>-->
-                <!--<configuration>-->
-                  <!--<descriptors>-->
-                    <!--<descriptor>package.xml</descriptor>-->
-                  <!--</descriptors>-->
-                <!--</configuration>-->
-              <!--</execution>-->
-            <!--</executions>-->
-          <!--</plugin>-->
-        <!--</plugins>-->
-      <!--</build>-->
-    <!--</profile>-->
+    <profile>
+      <id>build-package</id>
+      <properties>
+        <app.location.windows>c:/tf2/mint</app.location.windows>
+    	<app.location.linux>${project.home}</app.location.linux>
+		<mintServer.hostname>localhost</mintServer.hostname>
+      </properties>
+      <!-- Used for creating an install - omits local build system settings -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>make-assembly</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>package.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>ide</id>
       <properties>
         <packaging>jar</packaging>
         <project.home>../</project.home>
+		<mintServer.hostname>localhost</mintServer.hostname>
       </properties>
     </profile>
 
@@ -135,7 +136,7 @@
 	  </properties>
 	</profile>
 
-	<!-- DEV-Default profile -->
+	<!-- QA -->
 	<profile>
 	  <id>qa</id>
 	  <activation>
@@ -148,6 +149,21 @@
 		  <mintServer.hostname>ic2-redbox-vm.intersect.org.au</mintServer.hostname>
 	  </properties>
 	</profile>
+
+	<!-- Staging -->
+	<profile>
+	  <id>qa</id>
+	  <activation>
+		  <property>
+			  <name>env</name>
+			  <value>staging</value>
+		  </property>
+	  </activation>
+	  <properties>
+		  <mintServer.hostname>ic2-ms22-staging1-vm.intersect.org.au</mintServer.hostname>
+	  </properties>
+	</profile>
+
   </profiles>
   <!-- The standard build/deploy process for making a server -->
   <build>
