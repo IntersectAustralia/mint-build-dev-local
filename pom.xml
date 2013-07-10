@@ -152,7 +152,7 @@
 
 	<!-- Staging -->
 	<profile>
-	  <id>qa</id>
+	  <id>staging</id>
 	  <activation>
 		  <property>
 			  <name>env</name>
