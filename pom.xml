@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.googlecode.redbox-mint</groupId>
-  <artifactId>Intersect-Mint-Installer</artifactId>
+  <artifactId>mint-UTS</artifactId>
   <version>1.6.1</version>
   <packaging>${packaging}</packaging>
-  <name>Intersect - Mint Installer</name>
+  <name>UTS Mint</name>
   <parent>
     <groupId>com.googlecode.redbox-mint</groupId>
     <artifactId>mint</artifactId>
@@ -29,8 +29,8 @@
     <dir.storage>${project.home}/storage</dir.storage>
     <dir.geonames>${dir.home}/geonames/solr</dir.geonames>
     <server.url.base>http://${mintServer.hostname}:${server.port}/mint/</server.url.base>
-	<smtp.host>smtp.gmail.com</smtp.host>
-	<admin.email>seanx@intersect.org.au</admin.email>
+	<smtp.host>mailfilter.itd.uts.edu.au</smtp.host>
+	<admin.email>redbox.admin@uts.edu.au</admin.email>
     <!-- Control scripts try to auto-detect proxy. Use this value if you
              want Java to specifically exclude certain hosts from proxying. -->
     <non.proxy.hosts>${mintServer.hostname}</non.proxy.hosts>
@@ -163,6 +163,34 @@
 		  <mintServer.hostname>ic2-ms22-staging1-vm.intersect.org.au</mintServer.hostname>
 	  </properties>
 	</profile>
+
+	  <!-- UTS Test -->
+	  <profile>
+		  <id>test</id>
+		  <activation>
+			  <property>
+				  <name>env</name>
+				  <value>test</value>
+			  </property>
+		  </activation>
+		  <properties>
+			  <mintServer.hostname>test-mint.research.uts.edu.au</mintServer.hostname>
+		  </properties>
+	  </profile>
+
+	  <!-- production -->
+	  <profile>
+		  <id>production</id>
+		  <activation>
+			  <property>
+				  <name>env</name>
+				  <value>production</value>
+			  </property>
+		  </activation>
+		  <properties>
+			  <mintServer.hostname>mint.research.uts.edu.au</mintServer.hostname>
+		  </properties>
+	  </profile>
 
   </profiles>
   <!-- The standard build/deploy process for making a server -->

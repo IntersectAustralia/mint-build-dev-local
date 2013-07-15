@@ -2,8 +2,8 @@
     "version": "1.1.0.1",
     "redbox.version.string": "${redbox.version}",
     "redbox.identity": {
-        "institution": "Intersect Australia",
-        "RIF-CS Group": "Intersect Australia"
+        "institution": "University of Technology, Sydney",
+        "RIF-CS Group": "University of Technology, Sydney, Australia"
     },
     "configured": true,
     "urlBase": "${server.url.base}",
@@ -110,8 +110,8 @@
         "nlaIntegration": {
             "enabled": true,
             "pidProperty": "nlaPid",
-            "agencyCode": "Intersect Australia",
-            "agencyName": "Intersect Australia",
+            "agencyCode": "AU-NTSM",
+            "agencyName": "University of Technology, Sydney",
             "includeTest": {
                 "repository.name": "People"
             }
