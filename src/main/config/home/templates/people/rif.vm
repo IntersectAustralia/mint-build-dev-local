@@ -105,10 +105,13 @@
                         #set($key = $value.getString("empty", "curatedPid"))
                         #set($rel = $value.getString("hasAssociationWith", "relationship"))
                         #if ($key != "empty")
+                            #set($start = $key.substring(0, 14))
+                            #if( $start != "https://redbox" )
             <relatedObject>
                 <key>$util.encodeXml($key)</key>
                 <relation type="$util.encodeXml($rel)"/>
             </relatedObject>
+                            #end
                         #end
                     #end
                 #end
