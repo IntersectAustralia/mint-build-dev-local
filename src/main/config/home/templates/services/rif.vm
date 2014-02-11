@@ -21,7 +21,7 @@
 
             ### Name
             <name type="primary">
-                <namePart type="title">$util.encodeXml($util.get($item, "data", "Name"))</namePart>
+                <namePart>$util.encodeXml($util.get($item, "data", "Name"))</namePart>
             </name>
 
             ### Home Page
@@ -34,6 +34,28 @@
                     </physical>
                 </address>
             </location>
+            #end
+
+            ### Relations
+            ## Edit: does not publish relationships if the key starts with
+            ## "https://redbox" - as these are not recognised in RDA
+            #set($valueList = $item.getJsonSimpleList("relationships"))
+            #if($valueList)
+                #foreach($value in $valueList)
+                    ## NOTE: removing curation condition if ($value.getBoolean(false, "isCurated"))
+                        #set($key = $value.getString("empty", "identifier"))
+                        #set($rel = $value.getString("hasAssociationWith", "relationship"))
+                        #if ($key != "empty")
+                            #set($start = $key.substring(0, 14))
+                            #if( $start != "https://redbox" )
+            <relatedObject>
+                <key>$util.encodeXml($key)</key>
+                <relation type="$util.encodeXml($rel)"/>
+            </relatedObject>
+                            #end
+                        #end
+                    ##end
+                #end
             #end
 
             ### ANZSRC
@@ -57,29 +79,12 @@
             #else
             <description type="full">$util.encodeXml($util.get($item, "data", "Name"))</description>
             #end
-
-            ### Relations
-            ## Edit: does not publish relationships if the key starts with
-            ## "https://redbox" - as these are not recognised in RDA
-            #set($valueList = $item.getJsonSimpleList("relationships"))
-            #if($valueList)
-                #foreach($value in $valueList)
-                    #if ($value.getBoolean(false, "isCurated"))
-                        #set($key = $value.getString("empty", "curatedPid"))
-                        #set($rel = $value.getString("hasAssociationWith", "relationship"))
-                        #if ($key != "empty")
-                            #set($start = $key.substring(0, 14))
-                            #if( $start != "https://redbox" )
-            <relatedObject>
-                <key>$util.encodeXml($key)</key>
-                <relation type="$util.encodeXml($rel)"/>
-            </relatedObject>
-                            #end
-                        #end
-                    #end
-                #end
+           
+            ### Access Policy
+            #set( $accesspolicy = $util.get($item, "data", "Access_Policy"))
+            #if( "$!accesspolicy" != "")
+            <accessPolicy>$util.encodeXml($accesspolicy)</accessPolicy>
             #end
-
         </service>
     </registryObject>
 </registryObjects>
